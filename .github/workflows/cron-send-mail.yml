@@ -12,4 +12,4 @@ jobs:
     steps:
       - name: Trigger Vercel Email Function
         run: |
-          curl -X GET https://your-vercel-project.vercel.app/api/sendMail
+          curl -X GET https://vercel.com/mohamedharris14s-projects/rem-p3su/5aTQuRyGDJTMQt8hSSWpBbkSAPyQ/api/sendMail
