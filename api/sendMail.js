@@ -31,23 +31,13 @@ export default async function handler(req, res) {
       pass: process.env.SMTP_PASS,
     },
   });
-  const nows = new Date();
-
-let hours = nows.getHours(); // 0-23
-const minutes = nows.getMinutes(); // 0-59
-const ampm = hours >= 12 ? 'PM' : 'AM';
-
-hours = hours % 12; // convert 0-23 to 0-11
-hours = hours ? hours : 12; // convert 0 to 12
-
-const formattedTime = `${hours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
-
+  
 
   const mailOptions = {
     from: `"My App" <${process.env.SMTP_USER}>`,
     to: process.env.TO_EMAIL,
     subject: "Tablet podunga anbey",
-    text: `It's ${formattedTime}! tablet 💊 pottutiya pondatti 😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘.`,
+    text:  "tablet 💊 pottutiya pondatti 😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘",
   };
 
   try {
