@@ -1,32 +1,54 @@
 import nodemailer from "nodemailer";
-import dotenv from "dotenv";
+import fs from "fs";
+import path from "path";
 
-dotenv.config();
+const logFile = path.resolve("./lastSent.txt");
 
-async function sendMail() {
+export default async function handler(req, res) {
+  const now = new Date();
+  const today = now.toISOString().split("T")[0]; // YYYY-MM-DD
+  const hour = now.getHours(); // 0-23
+
+  // Determine slot: AM or PM
+  const slot = hour < 12 ? "AM" : "PM";
+
+  // Check if already sent in this slot
+  let log = {};
+  if (fs.existsSync(logFile)) {
+    log = JSON.parse(fs.readFileSync(logFile, "utf-8"));
+    if (log[today] && log[today][slot]) {
+      return res.status(200).json({ message: `Email already sent today ${slot}` });
+    }
+  }
+
+  // Configure transporter
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: parseInt(process.env.SMTP_PORT),
     secure: false,
     auth: {
       user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS
-    }
+      pass: process.env.SMTP_PASS,
+    },
   });
 
   const mailOptions = {
     from: `"My App" <${process.env.SMTP_USER}>`,
     to: process.env.TO_EMAIL,
-    subject: "Test Email",
-    text: "Hello! This is a test email."
+    subject: `Scheduled Email ${slot}`,
+    text: `Hello! This email is sent automatically from Vercel at ${slot}.`,
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log("Email sent:", info.response);
+    await transporter.sendMail(mailOptions);
+
+    // Update log
+    log[today] = log[today] || {};
+    log[today][slot] = true;
+    fs.writeFileSync(logFile, JSON.stringify(log));
+
+    res.status(200).json({ message: `Email sent successfully ${slot}!` });
   } catch (err) {
-    console.error("Error sending email:", err);
+    res.status(500).json({ error: err.message });
   }
 }
-
-sendMail();
