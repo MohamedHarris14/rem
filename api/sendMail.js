@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   const hour = now.getHours(); // 0-23
 
   // Determine slot: AM or PM
-  const slot = hour < 12 ? "AM" : "PM";
+  const slot = hour < 12 ? today : today;
 
   // Check if already sent in this slot
   let log = {};
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
     from: `"My App" <${process.env.SMTP_USER}>`,
     to: process.env.TO_EMAIL,
     subject: `Scheduled Email ${slot}`,
-    text: `Hello! This email is sent automatically from Vercel at ${slot}.`,
+    text: `It's ${slot}! tablet 💊 pottutiya pondatti 😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘.`,
   };
 
   try {
