@@ -1,0 +1,15 @@
+name: Send Scheduled Email
+
+on:
+  schedule:
+
+    - cron: '48 9 * * *'
+  workflow_dispatch:
+
+jobs:
+  send-mail:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel Email Function
+        run: |
+          curl -X GET https://rem-p3su.vercel.app/api/sendMail
