@@ -56,8 +56,8 @@ if (remainingDays > 0) {
   const mailOptions = {
     from: `"My App" <${process.env.SMTP_USER}>`,
     to: process.env.TO_EMAIL,
-    subject: "Tablet podunga anbey",
-    text:  duedate() + "and Morning tablet podu kannamma 😘😘",
+    subject: duedate(),
+    text: "Morning tablet podu kannamma 😘😘",
   };
 
   try {
