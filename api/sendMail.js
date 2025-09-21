@@ -32,12 +32,32 @@ export default async function handler(req, res) {
     },
   });
   
+function duedate(){
+    // Target date: 3rd April 2026
+const targetDate = new Date("2026-04-03");
 
+// Current date
+const today = new Date();
+
+// Calculate difference in milliseconds
+const diffTime = targetDate.getTime() - today.getTime();
+
+// Convert to days (1000ms * 60s * 60m * 24h)
+const remainingDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+// Display reminder
+if (remainingDays > 0) {
+  return `⏳ ${remainingDays} days left until 3rd April 2026 🎊`;
+} else if (remainingDays === 0) {
+  return "🎉 Today is 3rd April 2026!";
+} else {
+  return `✅ 3rd April 2026 was ${Math.abs(remainingDays)} days ago 🎊`;
+}
+}
   const mailOptions = {
     from: `"My App" <${process.env.SMTP_USER}>`,
     to: process.env.TO_EMAIL,
     subject: "Tablet podunga anbey",
-    text:  "tablet 💊 pottutiya pondatti 😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘",
+    text:  duedate() + "and Morning tablet podu kannamma 😘😘",
   };
 
   try {
