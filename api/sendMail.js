@@ -258,7 +258,7 @@ const quotes = [
 
 
 function getQuoteByDate(date = new Date()) {
-  const startDate = new Date("2025-09-22"); // first day to start quotes
+  const startDate = new Date("2025-09-23"); // first day to start quotes
   const diffDays = Math.floor((date - startDate) / (1000 * 60 * 60 * 24));
   const index = diffDays % quotes.length; // cycle after 192 days
   return quotes[index];
