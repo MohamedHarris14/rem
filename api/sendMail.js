@@ -2,7 +2,8 @@ import nodemailer from "nodemailer";
 import fs from "fs";
 import path from "path";
 
-const logFile = path.resolve("./lastSent.txt");
+
+const logFile = "/tmp/lastSent.json"; 
 
 export default async function handler(req, res) {
   const now = new Date();
