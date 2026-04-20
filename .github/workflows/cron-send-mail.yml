@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Trigger Vercel Email Function
         run: |
-          curl -X GET https://rem-p3su.vercel.app/api/sendMail
+          
